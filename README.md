@@ -1,2 +1,2 @@
 # daily-programmer
-Daily programming tasks from r/dailyprogrammer
+Daily programming tasks from r/dailyprogrammer 😀
