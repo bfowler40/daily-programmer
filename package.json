@@ -1,0 +1,30 @@
+{
+  "name": "daily-programmer",
+  "version": "1.0.0",
+  "description": "Daily programming tasks from r/dailyprogrammer 😀",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bfowler40/daily-programmer.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Ben Fowler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bfowler40/daily-programmer/issues"
+  },
+  "homepage": "https://github.com/bfowler40/daily-programmer#readme",
+  "dependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3"
+  }
+}
