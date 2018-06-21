@@ -1,6 +1,7 @@
 {
 	"extends": "tslint:recommended",
 	"rules": {
+		"arrow-parens": false,
 		"import-spacing": false,
 		"indent": [true, "tabs", 4],
 		"quotemark": [true, "single", "jsx-double"],
