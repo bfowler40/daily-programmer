@@ -1,6 +1,8 @@
 /**
  * Challenge #349 - Change Calculator
  * https://www.reddit.com/r/dailyprogrammer/comments/7ttiq5/20180129_challenge_349_easy_change_calculator/
+ *
+ * The solution has been refragmented - will check back to see whether it is readable
  */
 
 {
@@ -10,9 +12,12 @@
 	 * Credit: https://stackoverflow.com/a/42531964
 	 *
 	 * @param {number[]} arr
-	 * @return {any}
+	 * @return {number[][]}
 	 */
-	const arraySubsets: any = (arr: number[]): number[][] => {
+
+	type ArraySubsets = (arr: number[]) => number[][];
+
+	const arraySubsets: ArraySubsets = (arr: number[]): number[][] => {
 		if (arr.length === 1) {
 			return [arr];
 		} else {
@@ -26,87 +31,74 @@
 	};
 
 	/**
-	 * SubsetTotals
-	 * Create an array with the totals for each subset
+	 * Get Change
+	 *
+	 * Map subsets to an array of totals
+	 * Reduce subset totals to those which equal the change to give
+	 * Reduce to the first subset with the least coins to handover
 	 *
 	 * @param {number[][]} subsets
+	 * @param {number} balance
+	 * @param {number} limit
 	 * @return {number[]}
 	 */
-	const subsetTotals: any = (subsets: number[][]): number[] => {
-		return subsets.map(set =>
-			set.reduce((a: number, b: number): number => a + b, 0)
-		);
-	};
 
-	/**
-	 * All Solutions
-	 * Create an array with the subset of each solution
-	 *
-	 * @param {number[]} totals
-	 * @param {number} change
-	 * @param {number[][]} coinSubsets
-	 * @return {number[]}
-	 */
-	const formAllSolutions: any = (
-		totals: number[],
-		change: number,
-		coinSubsets: number[][]
+	type GetChange = (
+		subsets: number[][],
+		balance: number,
+		limit: number
+	) => number[];
+
+	const getChange: GetChange = (
+		subsets: number[][],
+		balance: number,
+		limit: number
 	): number[] => {
-		return totals.reduce((results: any, total: number, index: number) => {
-			if (total === change) {
-				results.push(coinSubsets[index]);
-			}
-			return results;
-		}, []);
-	};
-
-	/**
-	 * Map Solution Coin Subsets
-	 */
-
-	/**
-	 * Best solution
-	 * Find the first solution using the smallest amount of coins
-	 *
-	 * @param {number[][]} solutionSubsets
-	 * @return {any}
-	 */
-	const findBestSolution: any = (solutionSubsets: number[][]): any => {
-		return solutionSubsets.reduce(
-			(result: number[], solution: number[]) => {
+		return subsets
+			.map(
+				(set: number[]): number =>
+					set.reduce(
+						(total: number, coin: number): number => total + coin,
+						0
+					)
+			)
+			.reduce((results: any, total: number, index: number): number[] => {
+				if (total === balance) {
+					results.push(subsets[index]);
+				}
+				return results;
+			}, [])
+			.reduce((result: number[], solution: number[]): number[] => {
 				if (solution.length < result.length) {
 					result = solution;
 				}
 				return result;
-			},
-			new Array(10)
-		);
+			}, new Array(limit));
 	};
 
 	/**
 	 * Transaction
 	 *
 	 * @param {number[]} input
-	 * @param {any} output
+	 * @param {any} limit
 	 * @return {any}
 	 */
-	const transaction: any = (input: number[], output: any) => {
-		const change: number = input[0];
-		const coins: number[] = input.slice(1);
-		const coinSubsets: number[][] = arraySubsets(coins);
-		const coinTotals: any = subsetTotals(coinSubsets);
-		const allSolutions: number[] = formAllSolutions(coinTotals, change, coinSubsets);
-		const solution: number[] = findBestSolution(allSolutions, output);
 
-		// console.log(change, coins);
-		// console.log('subsets', coinSubsets);
-		// console.log('totals', coinTotals);
-		// console.log('all solutions', allSolutions);
-		// console.log('solution subsets', solutionSubsets);
-		// console.log('best solution', solution);
+	type Transaction = (input: number[], limit: number) => string;
 
-		return allSolutions.length !== 0 && solution.length < output
-			? `Change: ${solution.join(' + ')} = ${change}`
+	const transaction: Transaction = (
+		input: number[],
+		limit: number
+	): string => {
+		const [balance, ...coins]: any = input;
+		const solution: number[] = getChange(
+			arraySubsets(coins),
+			balance,
+			limit
+		);
+
+		return solution.length !== 0 && solution[0]
+			? `Change: ${solution.join(' + ')} = ${balance}`
 			: 'No solutions available';
 	};
 
