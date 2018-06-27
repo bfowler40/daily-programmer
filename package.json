@@ -4,6 +4,7 @@
   "description": "Daily programming tasks from r/dailyprogrammer 😀",
   "main": "index.js",
   "scripts": {
+	"dev": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
