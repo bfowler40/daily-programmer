@@ -18,6 +18,7 @@
 		],
 		"no-console": false,
 		"variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"],
-        "no-angle-bracket-type-assertion": true
+		"no-angle-bracket-type-assertion": true,
+		"max-classes-per-file": false
 	}
 }
