@@ -4,11 +4,6 @@
  */
 
 {
-	interface IOffspring {
-		newbornMales: number;
-		newbornFemales: number;
-	}
-
 	/** Rabbit Class */
 	class Rabbits {
 		protected _ageMonthsDie: number = 96;
@@ -29,7 +24,6 @@
 		 * @param {number} populationGoal
 		 */
 		constructor(initRabbits: number, populationGoal: number) {
-			/** initial rabbits are 2 months old */
 			this._count[this._initialRabbitAgeMonths - 1] = initRabbits;
 			this._populationGoal = populationGoal;
 		}
@@ -41,7 +35,7 @@
 		 */
 		get count(): number {
 			return this._count.reduce(
-				(accumulator: number, rabbit: number) => accumulator + rabbit,
+				(a: number, rabbit: number) => a + rabbit,
 				0
 			);
 		}
@@ -61,8 +55,8 @@
 		 * @return {void}
 		 */
 		public age(): void {
-			this._deceased += this._count.reverse().shift();
-			this._count.reverse().unshift(0);
+			this._deceased += this._count.pop();
+			this._count.unshift(0);
 		}
 
 		/**
@@ -77,6 +71,11 @@
 	}
 
 	/** Female Rabbits are able to breed */
+	interface IOffspring {
+		newbornMales: number;
+		newbornFemales: number;
+	}
+
 	class FemaleRabbits extends Rabbits {
 		protected _ageMonthFertile: number = 5;
 
@@ -91,7 +90,7 @@
 		 * @return {IOffspring}
 		 */
 		public offspring(): IOffspring {
-			const numBreaders = this._count
+			const numFertile = this._count
 				.slice(this._ageMonthFertile - 1)
 				.reduce(
 					(accumulator: number, rabbit: number) =>
@@ -100,8 +99,8 @@
 				);
 
 			return {
-				newbornFemales: numBreaders * 9,
-				newbornMales: numBreaders * 5
+				newbornFemales: numFertile * 9,
+				newbornMales: numFertile * 5
 			};
 		}
 	}
@@ -121,6 +120,10 @@
 		initalRabbitsFemale,
 		dominationPopulation
 	]): void => {
+		let month: number = -1;
+		let rabbitCount: number = 0;
+		let rabbitsDeceased: number = 0;
+
 		const maleRabbits = new Rabbits(
 			initalRabbitsMale,
 			dominationPopulation
@@ -129,10 +132,6 @@
 			initalRabbitsFemale,
 			dominationPopulation
 		);
-
-		let month: number = -1;
-		let rabbitCount: number = 0;
-		let rabbitsDeceased: number = 0;
 
 		/** The month loop */
 		while (rabbitCount < dominationPopulation) {
