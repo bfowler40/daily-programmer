@@ -12,27 +12,11 @@
 		}
 
 		get hours() {
-			const keys: number = Math.max(
-				...[].concat(...this.scenario)
-			);
-			const lights: any = new Array(keys + 1).fill(false, 0, keys + 1);
+			const keys: number = Math.max(...[].concat(...this.scenario));
 
-			this.scenario.forEach(person => {
-				const [enter, leave] = person;
-
-				lights.fill(true, enter, leave);
-			});
-
-			const x = lights.reduce((a, b) => {
-				if (b) {
-					a += 1;
-				}
-
-				return a;
-			}, 0);
-
-			console.log(x);
-			return 1;
+			return this.scenario
+				.reduce((room, people) => room.fill(true, ...people), new Array(keys + 1).fill(false, 0, keys + 1))
+				.reduce((count, room) => (room ? (count += 1) : count));
 		}
 	}
 
