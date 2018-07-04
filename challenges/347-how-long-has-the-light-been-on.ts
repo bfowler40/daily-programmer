@@ -8,7 +8,7 @@
 		protected scenario: number[][];
 
 		/**
-		 * Creare the 'room'
+		 * Create the 'room'
 		 * @param {number[][]} scenario
 		 */
 		constructor(scenario: number[][]) {
@@ -21,7 +21,7 @@
 		 *
 		 * @return {number}
 		 */
-		public hours() {
+		public hours(): number {
 			/** Calculate how long our array needs to be based on the largest int in the input */
 			const keys: number = Math.max(...[].concat(...this.scenario));
 
