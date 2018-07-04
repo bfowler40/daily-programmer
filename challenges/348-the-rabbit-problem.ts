@@ -72,8 +72,8 @@
 
 	/** Female Rabbits are able to breed */
 	interface IOffspring {
-		newbornMales: number;
 		newbornFemales: number;
+		newbornMales: number;
 	}
 
 	class FemaleRabbits extends Rabbits {
@@ -90,7 +90,7 @@
 		 * @return {IOffspring}
 		 */
 		public offspring(): IOffspring {
-			const numFertile = this._count
+			const numFertile: number = this._count
 				.slice(this._ageMonthFertile - 1)
 				.reduce(
 					(accumulator: number, rabbit: number) =>
