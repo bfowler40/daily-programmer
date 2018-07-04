@@ -7,19 +7,46 @@
 	class Room {
 		protected scenario: number[][];
 
-		constructor(scenario) {
+		/**
+		 * Creare the 'room'
+		 * @param {number[][]} scenario
+		 */
+		constructor(scenario: number[][]) {
 			this.scenario = scenario;
 		}
 
-		get hours() {
+		/**
+		 * Hours
+		 * Calculate how many hours the light has been on
+		 *
+		 * @return {number}
+		 */
+		public hours() {
+			/** Calculate how long our array needs to be based on the largest int in the input */
 			const keys: number = Math.max(...[].concat(...this.scenario));
 
-			return this.scenario
-				.reduce((room, people) => room.fill(true, ...people), new Array(keys + 1).fill(false, 0, keys + 1))
-				.reduce((count, room) => (room ? (count += 1) : count));
+			return (
+				this.scenario
+					/** Reduce to an array filled with true/false values based on when people enter and exit */
+					.reduce(
+						(room: boolean[], people: number[]): boolean[] =>
+							room.fill(true, ...people),
+						new Array(keys + 1).fill(false, 0, keys + 1)
+					)
+					/** Reduce the new array based on true values */
+					.reduce(
+						(count: number, room: boolean[]): number =>
+							room ? (count += 1) : count
+					)
+			);
 		}
 	}
 
 	const scenario1 = new Room([[1, 3], [2, 3], [4, 5]]);
-	console.log(scenario1.hours);
+	const scenario2 = new Room([[2, 4], [3, 6], [1, 3], [6, 8]]);
+	const scenario3 = new Room([[6, 8], [5, 8], [8, 9], [5, 7], [4, 7]]);
+
+	console.log(scenario1.hours());
+	console.log(scenario2.hours());
+	console.log(scenario3.hours());
 }
