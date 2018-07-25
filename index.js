@@ -3,4 +3,5 @@
 // import './challenges/359-paperfold-sequence';
 // import './challenges/349-change-calculator';
 // import './challenges/347-how-long-has-the-light-been-on';
-import './challenges/tarifa';
+// import './challenges/tarifa';
+import './challenges/spavanac';
