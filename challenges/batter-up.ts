@@ -19,7 +19,7 @@
 			(result: number) => result >= 0
 		);
 		const recordSum: number = recordLessWalks.reduce(
-			(result: number, total: number) => result + total,
+			(total: number, result: number) => total + result,
 			0
 		);
 
