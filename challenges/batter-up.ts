@@ -6,6 +6,12 @@
 {
 	type CalcBattingAverage = (input: number[]) => number;
 
+	/**
+	 * Calulate Batting Average
+	 * Batting average less walks
+	 * @param {number[]} batter
+	 * @return {number}
+	 */
 	const calcBattingAverage: CalcBattingAverage = (
 		batter: number[]
 	): number => {
