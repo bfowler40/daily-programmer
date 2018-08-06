@@ -16,7 +16,7 @@
 		const sqr: number = Math.sqrt(encoded.length);
 		const decodedArray: string[][] = [...Array(sqr)].map(e => []);
 
-		encoded.split('').forEach((letter, index) => {
+		encoded.split('').forEach((letter, index): void => {
 			decodedArray[(sqr - 1) - (index % sqr)].push(letter);
 		});
 
