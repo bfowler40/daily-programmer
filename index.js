@@ -5,4 +5,4 @@
 // import './challenges/347-how-long-has-the-light-been-on';
 // import './challenges/tarifa';
 // import './challenges/spavanac';
-import './challenges/batter-up';
+import './challenges/encoded-message';
